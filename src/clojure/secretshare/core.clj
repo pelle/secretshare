@@ -37,6 +37,12 @@
      :mod (.getPrimeModulus pi)
      :description (.getDescription pi)}))
 
+(defn si->tok [si]
+  (let [pi (.getPublicInfo si)]
+    (str (.getIndex si) ":" (.getN pi) ":" (.getK pi) ":" (.toString (.getShare si) 36))))
+
+
+
 (defn map->si [m]
   (com.tiemens.secretshare.engine.SecretShare$ShareInfo. (:index m) (:share m)
                                                          (com.tiemens.secretshare.engine.SecretShare$PublicInfo.
@@ -45,19 +51,31 @@
                                                           (:mod m)
                                                           (:description m))))
 
+(defn tok->si [tok]
+  (let [ data (clojure.string/split tok #":")
+         index (java.lang.Long/parseLong (first data))
+         n (java.lang.Long/parseLong  (get data 1))
+         k (java.lang.Long/parseLong  (get data 2))
+         share (java.math.BigInteger. (get data 3) 36)]
+    (com.tiemens.secretshare.engine.SecretShare$ShareInfo. index share
+                                                         (public-info n k ))))
+
+
+
 (defn split
   ([pi data]
-   (map si->map
+   (map si->tok
         (.getShareInfos
          (.split (ss pi) data))))
   ([data]
    (split (public-info) data)))
 
-
 (defn combine
   ([shares]
-   (let [shares (map map->si shares)
+   (let [shares (map tok->si shares)
          pi     (.getPublicInfo (first shares))]
      (.getSecret
        (.combine (ss pi) (vec shares))))))
+
+(combine (split (biginteger 1234123431234)))
 
