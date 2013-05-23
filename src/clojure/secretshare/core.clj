@@ -68,18 +68,21 @@
         (.getShareInfos
          (.split (ss pi) data))))
   ([pi data]
-     (split pi data si->tok))
+     (split pi data si->map))
   ([data]
    (split (public-info) data)))
 
 (defn combine
   ([shares]
-   (combine shares tok->si))
+   (combine shares map->si))
   ([shares f]
    (let [shares (map f shares)
          pi     (.getPublicInfo (first shares))]
      (.getSecret
        (.combine (ss pi) (vec shares))))))
+
+
+(split (biginteger 1234123431234))
 
 (combine (split (biginteger 1234123431234)))
 
