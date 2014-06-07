@@ -7,7 +7,7 @@ Secret Share is a clojure wrapper around a Java implementation of Shamir's Secre
 Add the following to your project.clj
 
 ```clojure
-[secretshare "1.0.0"]
+[secretshare "1.1.0"]
 ```
 
 Then you can use it:
@@ -29,7 +29,7 @@ All the hard work is done by (Tim Tiemens)[http://sourceforge.net/users/timtieme
 
 http://sourceforge.net/projects/secretsharejava/
 
-It is not available in a maven library so I include it within the jar.
+It is now available in a maven library so I have unbundled it from this jar.
 
 ## License
 

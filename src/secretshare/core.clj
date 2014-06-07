@@ -20,7 +20,7 @@
   ([]
    (public-info 2 2))
   ([ n k m description]
-    (com.tiemens.secretshare.engine.SecretShare$PublicInfo. n k m description)
+    (com.tiemens.secretshare.engine.SecretShare$PublicInfo. (int n) k m description)
    ))
 
 
@@ -35,6 +35,7 @@
      :n (.getN pi)
      :k (.getK pi)
      :mod (.getPrimeModulus pi)
+     :uuid (.getUuid pi)
      :description (.getDescription pi)}))
 
 (defn si->tok [si]
